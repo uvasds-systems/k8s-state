@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/uvasds-systems/k8s-state
     targetRevision: HEAD
-    path: uvasds-eks  # k8s/overlays/prod        # or your Helm chart path
+    path: k8s-state  # k8s/overlays/prod        # or your Helm chart path
   destination:
     server: https://kubernetes.default.svc
     namespace: my-app
