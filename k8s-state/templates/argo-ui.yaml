@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argoui-ingress
+  namespace: argocd
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: argocd.uvasds.sh
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  number: 80
+            path: /
+
