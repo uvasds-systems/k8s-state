@@ -1,19 +1,34 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: argoui-ingress
+  name: argocd-server-ingress
   namespace: argocd
+  annotations:
+    # Use the nginx ingress class
+    kubernetes.io/ingress.class: nginx
+
+    # ssl-passthrough lets nginx forward the TLS connection directly to
+    # argocd-server, which handles its own cert. This is the recommended
+    # approach — ArgoCD speaks both gRPC and HTTPS on the same port.
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+
+    # Force HTTP -> HTTPS redirect at the nginx layer
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+    # ArgoCD's backend is HTTPS, so the backend protocol must match
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
-  ingressClassName: nginx
   rules:
     - host: argocd.uvasds.sh
       http:
         paths:
-          - pathType: Prefix
+          - path: /
+            pathType: Prefix
             backend:
               service:
                 name: argocd-server
                 port:
-                  number: 8080
-            path: /
-
+                  number: 443
+  # tls block is intentionally omitted when using ssl-passthrough —
+  # nginx won't terminate TLS, so there's no secret to reference here.
+  # Your wildcard cert on the ELB still handles the public-facing encryption.
