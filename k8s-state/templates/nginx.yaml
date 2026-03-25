@@ -49,6 +49,9 @@ kind: Ingress
 metadata:
   name: accord-ingress
   namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    kubernetes.io/ingress.class: "nginx"
 spec:
   ingressClassName: nginx
   rules:
