@@ -52,7 +52,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: nginx.uvasds.sh
+    - host: accord.uvasds.sh
       http:
         paths:
           - pathType: Prefix
