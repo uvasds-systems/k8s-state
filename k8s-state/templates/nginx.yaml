@@ -51,6 +51,9 @@ metadata:
   namespace: default
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+      - nginx.uvasds.sh
   rules:
     - host: nginx.uvasds.sh
       http:
@@ -62,3 +65,4 @@ spec:
                 port:
                   number: 80
             path: /
+ 
