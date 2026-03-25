@@ -18,7 +18,7 @@ spec:
             memory: 1024Mi
         env:
         - name: NOTEBOOK_URL
-          value: "https://raw.githubusercontent.com/uvasds-systems/jupyter-jobs/refs/heads/main/earthquakes.ipynb"
+          value: "https://raw.githubusercontent.com/JuneWayne/jupyter-jobs/refs/heads/main/earthquakes.ipynb"
         - name: START
           value: "2024-01-01"
         - name: END
