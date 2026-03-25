@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: accord-deployment
   namespace: default
   labels:
-    app: nginx
+    app: accord
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nginx
+      app: accord
   template:
     metadata:
       labels:
-        app: nginx
+        app: accord
     spec:
       containers:
-        - name: nginx
+        - name: accord
           image: uvarc/accord-demo:latest
           ports:
             - containerPort: 80
@@ -31,14 +31,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  name: accord-service
   namespace: default
   labels:
-    app: nginx
+    app: accord
 spec:
   type: ClusterIP
   selector:
-    app: nginx
+    app: accord
   ports:
     - name: http
       port: 80
@@ -50,7 +50,7 @@ metadata:
   name: example
   namespace: default
 spec:
-  ingressClassName: nginx
+  ingressClassName: accord
   rules:
     - host: accord.uvasds.sh
       http:
@@ -58,7 +58,7 @@ spec:
           - pathType: Prefix
             backend:
               service:
-                name: nginx-service
+                name: accord-service
                 port:
                   number: 80
             path: /
