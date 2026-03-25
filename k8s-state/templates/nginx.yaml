@@ -43,4 +43,22 @@ spec:
     - name: http
       port: 80
       targetPort: 80
-
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: nginx.uvasds.sh
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: nginx-service
+                port:
+                  number: 80
+            path: /
