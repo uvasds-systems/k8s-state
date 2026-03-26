@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: papermill-job-KYN5DU
+  name: papermill-job-kyn5du
   namespace: default
 spec:
   template:
