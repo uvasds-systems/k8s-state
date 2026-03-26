@@ -6,7 +6,7 @@ metadata:
   labels:
     app: accord
 spec:
-  replicas: 1
+  # replicas: 1 # not needed with HPA handling replicas below
   selector:
     matchLabels:
       app: accord
@@ -65,4 +65,22 @@ spec:
                 port:
                   number: 80
             path: /
-
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: accord-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: accord-deployment
+  minReplicas: 1
+  maxReplicas: 8
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 40
