@@ -50,6 +50,7 @@ This document contains critical information about working with this codebase. Fo
    - Prefer `ghcr.io/uvasds-systems/` as the primary container registry
    - Use specific image tags (e.g., `:1.3`, `:1.117`) for production workloads
    - Avoid `:latest` tags except for development/testing
+   - Be sure amd64 architecture is supported for images.
 
 9. ArgoCD and GitOps
    - This repo is a Helm chart deployed via ArgoCD with automated sync
