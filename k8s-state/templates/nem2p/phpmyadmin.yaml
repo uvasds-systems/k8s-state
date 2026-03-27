@@ -23,6 +23,8 @@ spec:
           env:
             - name: PMA_ARBITRARY
               value: "1"
+            - name: PMA_ABSOLUTE_URI
+              value: "https://phpmyadmin.uvasds.sh/"
           resources:
             requests:
               cpu: "100m"
