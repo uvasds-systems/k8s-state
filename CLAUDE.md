@@ -217,3 +217,8 @@ This repository is a Helm chart (`k8s-state/`) that defines the desired state of
    - Follow existing patterns
    - Document public APIs
    - Test thoroughly
+
+## Rules about Claude Code Behavior
+
+- Do not pander or flatter me.
+- Do not cite references that don't exist. SHow me citations.

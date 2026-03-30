@@ -1,0 +1,69 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: phpmyadmin-deployment
+#   namespace: default
+#   labels:
+#     app: phpmyadmin
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: phpmyadmin
+#   template:
+#     metadata:
+#       labels:
+#         app: phpmyadmin
+#     spec:
+#       containers:
+#         - name: phpmyadmin
+#           image: phpmyadmin:latest
+#           ports:
+#             - containerPort: 80
+#           env:
+#             - name: PMA_ARBITRARY
+#               value: "1"
+#             - name: PMA_ABSOLUTE_URI
+#               value: "https://phpmyadmin.uvasds.sh/"
+#           resources:
+#             requests:
+#               cpu: "100m"
+#               memory: "128Mi"
+#             limits:
+#               cpu: "250m"
+#               memory: "256Mi"
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: phpmyadmin-service
+#   namespace: default
+#   labels:
+#     app: phpmyadmin
+# spec:
+#   type: ClusterIP
+#   selector:
+#     app: phpmyadmin
+#   ports:
+#     - name: http
+#       port: 80
+#       targetPort: 80
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: phpmyadmin-ingress
+#   namespace: default
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#     - host: phpmyadmin.uvasds.sh
+#       http:
+#         paths:
+#           - pathType: Prefix
+#             backend:
+#               service:
+#                 name: phpmyadmin-service
+#                 port:
+#                   number: 80
+#             path: /
